@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="no-referrer">
+    <meta name="color-scheme" content="light">
+    <link rel="icon" type="image/svg+xml" href="assets/brand/worldecho-globe.svg">
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/brand/favicon-64.png">
+    <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+    <title>WorldEcho &amp; WorldSync: Do Robotic World Models Really Follow Actions?</title>
+    <meta
+      name="description"
+      content="WorldEcho and WorldSync: diagnosing and aligning action-conditioned robotic world models. Explore the benchmark, method, and results."
+    >
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="assets/fonts/google-fonts.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sections.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="publication.css">
+    <link rel="stylesheet" href="action-coverage.css">
+    <link rel="stylesheet" href="rollout-demo.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="real-world-demo.css">
+    <script>document.documentElement.classList.add("js");</script>
+    <script src="script.js" type="module"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#abstract">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"><span id="progress-bar"></span></div>
+
+    <header class="site-header">
+      <nav class="nav container" aria-label="Primary navigation">
+        <a class="nav-brand" href="#top" aria-label="WorldEcho and WorldSync home">
+          <span class="project-wordmark nav-wordmark"><span>World<span class="wordmark-echo">Echo</span></span> <span class="wordmark-amp">&amp;</span> <span>World<span class="wordmark-sync">Sync</span></span></span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span><span></span>
+          <span class="sr-only">Toggle navigation</span>
+        </button>
+        <div id="nav-links" class="nav-links">
+          
+          <a href="#abstract">Abstract</a>
+          <a href="#evidence">Motivation</a>
+          <a href="#worldecho" class="nav-has-sub">Benchmark<span class="nav-sub">World<span class="wordmark-echo">Echo</span></span></a>
+          <a href="#worldsync" class="nav-has-sub">Method<span class="nav-sub">World<span class="wordmark-sync">Sync</span></span></a>
+          <a href="#results">Leaderboard</a>
+          
+          <a href="#state-control">Rollouts</a>
+          <a href="#policy-improvement">Policy</a>
+          <a href="#real-world-experiments">Demos</a>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false" hidden><span class="theme-toggle-icon" aria-hidden="true"></span><span data-theme-label>Light</span></button>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero hero-real-world" data-hero-reel aria-label="WorldEcho and WorldSync project introduction">
+        <div class="real-world-hero-media" aria-hidden="true">
+          <div class="real-world-hero-shot real-world-hero-shot-01"><video data-hero-video data-hero-start="85" muted loop playsinline preload="metadata" poster="assets/real-world/hero-01.jpg" src="assets/real-world/demo-01.mp4" tabindex="-1"></video></div>
+          <div class="real-world-hero-shot real-world-hero-shot-02"><video data-hero-video data-hero-start="17" muted loop playsinline preload="metadata" poster="assets/real-world/hero-02.jpg" src="assets/real-world/demo-02.mp4" tabindex="-1"></video></div>
+          <div class="real-world-hero-shot real-world-hero-shot-03"><video data-hero-video data-hero-start="36" muted loop playsinline preload="metadata" poster="assets/real-world/hero-03.jpg" src="assets/real-world/demo-03.mp4" tabindex="-1"></video></div>
+          <div class="real-world-hero-shot real-world-hero-shot-04"><video data-hero-video data-hero-start="90" muted loop playsinline preload="metadata" poster="assets/real-world/hero-04.jpg" src="assets/real-world/demo-04.mp4" tabindex="-1"></video></div>
+        </div>
+        <div class="real-world-hero-shade" aria-hidden="true"></div>
+        <div class="real-world-hero-labels" aria-hidden="true">
+          <span><b>01</b> Box Packing · Simplexity i7 Pro</span>
+          <span><b>02</b> Cup Stacking · Dual TianJi-Sharpa</span>
+          <span><b>03</b> Bread Placement · Franka FR3</span>
+          <span><b>04</b> Pen Collection · Franka FR3</span>
+        </div>
+        <div class="container hero-content">
+          <p class="eyebrow"><span class="eyebrow-line"></span> Seeing is not following.</p>
+          <h1><span class="hero-word"><img class="hero-word-icon" src="assets/brand/worldecho-icon-tight.svg" alt="">World<span class="wordmark-echo">Echo</span></span> <span class="hero-word"><em>&amp;</em> <img class="hero-word-icon" src="assets/brand/worldsync-icon-tight.svg" alt="">World<span class="wordmark-sync">Sync</span></span></h1>
+          <p class="hero-subtitle">Do robotic world models really follow actions?</p>
+          <p class="hero-lead">Diagnosing and aligning action-conditioned generation for policy learning.</p>
+          
+          <p class="publication-status" data-anonymous-authors>Anonymous authors</p>
+          <div class="hero-team" data-hero-team hidden>
+            <ol class="author-list" data-author-list></ol>
+            <p class="author-notes" data-author-notes></p>
+            <ol class="hero-affiliations" data-affiliation-list></ol>
+          </div>
+          <div class="hero-actions" data-hero-actions hidden></div>
+        </div>
+      </section>
+
+      <section id="institutions" class="publication-institutions" data-institutions hidden aria-label="Author institutions">
+        <div class="container">
+          <ol class="affiliation-list" aria-label="Institution websites"></ol>
+        </div>
+      </section>
+
+      <section id="overview" class="section-pad overview-section">
+        <div class="container container-wide">
+          <section id="abstract" class="abstract-section" aria-labelledby="abstract-heading">
+            <div class="abstract-layout">
+              <header class="abstract-heading">
+                <h2 id="abstract-heading">Abstract</h2>
+              </header>
+              <div class="abstract-copy">
+                <p>Action-conditioned world models are increasingly used as learned simulators for policy evaluation and improvement, yet their effectiveness rests on an unverified assumption: generated futures faithfully reflect arbitrary valid actions. Existing benchmarks are typically confined to expert demonstrations, leaving off-expert action following inadequately evaluated. To address this gap, we introduce WorldEcho, which probes action following over a broader action distribution using visual integrity and SE(3) trajectory alignment. Our diagnosis shows that current world models reasonably execute expert actions but struggle with diverse off-expert trajectories, either ignoring the commanded actions or producing visually invalid rollouts. We further propose WorldSync, which strengthens action following along three complementary axes: distributional coverage, representational grounding, and intervention-effect alignment. It broadens the training distribution over action consequences, grounds intermediate video representations in action-induced robot dynamics through an Action-Forcing Expert, and aligns predicted changes under action interventions with the corresponding changes in ground-truth futures. Experiments on RoboTwin benchmarks and real-robot tasks show that WorldSync improves WorldEcho metrics and serves as a more reliable simulator for iterative policy improvement, enabling policies to achieve higher success rates.</p>
+              </div>
+              
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+      <section id="teaser" class="section-pad teaser-section" aria-labelledby="teaser-heading">
+        <div class="container container-wide">
+          <div class="section-heading split-heading">
+            <div><h2 id="teaser-heading">Diagnose, improve, validate.</h2></div>
+            <p class="lead">WorldEcho queries world models with demonstrated and off-expert actions, replays each query in the simulator, and scores the generated future against the same actions' ground truth: visual integrity plus SE(3) trajectory alignment. WorldSync begins with robotic pretraining, then expands action coverage and adds two auxiliary supervision signals. Finally, policy experiments on simulated and real robots test whether better action following pays off.</p>
+          </div>
+
+          <figure id="figure-1" class="figure-shell" data-zoom>
+            <button class="figure-button" type="button" aria-label="Open the diagnose, improve, validate overview figure">
+              <img src="assets/figures/paper-figure-1.png" alt="Paper Figure 1: the diagnose, improve, validate pipeline. WorldEcho evaluates visual integrity and SE(3) trajectory alignment under demonstrated and off-expert queries. WorldSync combines robotic pretraining, expanded action coverage, an Action-Forcing Expert, and Intervention-Effect supervision. Simulation and real-robot experiments evaluate downstream policy improvement." width="2767" height="1445" loading="lazy">
+              <span class="figure-zoom" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <circle cx="8.6" cy="8.6" r="5.6"></circle>
+                  <path d="M12.8 12.8 17 17M8.6 6.2v4.8M6.2 8.6h4.8"></path>
+                </svg>
+              </span>
+            </button>
+          </figure>
+        </div>
+      </section>
+
+      <section id="evidence" class="section-pad evidence-section">
+        <div class="evidence-bg" aria-hidden="true"></div>
+        <div class="container container-wide">
+          <div class="section-heading split-heading">
+            <div>
+              <p class="kicker kicker-warn">Part I / The action-following problem</p>
+              <h2>World models fail to follow actions faithfully.</h2>
+            </div>
+            <p class="lead">
+              Faithful means every valid action, not just the ones it has seen. Query the model beyond its
+              demonstrations, and the video collapses or stays plausible while the motion stops listening.
+            </p>
+          </div>
+
+          <div class="failure-comparison" data-video-group aria-label="Motivation rollout comparison">
+          <div class="case-tabs" role="tablist" aria-label="Motivation case">
+            <button id="case-grab" class="case-tab active" type="button" role="tab" aria-selected="true" aria-controls="failure-console" data-case="grab">Grab roller</button>
+            <button id="case-handover" class="case-tab" type="button" role="tab" aria-selected="false" aria-controls="failure-console" tabindex="-1" data-case="handover">Handover block</button>
+            <button id="case-bread" class="case-tab" type="button" role="tab" aria-selected="false" aria-controls="failure-console" tabindex="-1" data-case="bread">Place bread in basket</button>
+          </div>
+
+          <div id="failure-console" class="failure-console" role="tabpanel" tabindex="0" aria-labelledby="case-grab">
+            <p class="comparison-scroll-hint" id="comparison-scroll-hint">Scroll horizontally to compare all four panels.</p>
+            <div class="failure-outputs" role="group" aria-label="Input frame and rollout outputs: simulator, visual collapse, and action mismatch" aria-describedby="comparison-scroll-hint" tabindex="0">
+              <article class="failure-video failure-input">
+                <div class="failure-copy">
+                  <header><span>Input</span><h3>Reference frame</h3></header>
+                  <p id="input-task">Grab roller</p>
+                </div>
+                <img id="failure-input" src="assets/inputs/grab-start.png" alt="First recorded simulator frame for Grab roller" width="320" height="240">
+              </article>
+              <article class="failure-video failure-good">
+                <div class="failure-copy">
+                  <header><span>GT</span><h3>Simulator ground truth</h3></header>
+                  <p>The simulator reference for the recorded action query.</p>
+                </div>
+                <video id="video-gt" controls muted playsinline preload="auto" poster="assets/posters/grab-gt.png" aria-label="Simulator ground-truth rollout">
+                  <source src="assets/videos/grab-gt.mp4" type="video/mp4">
+                </video>
+              </article>
+              <article class="failure-video failure-collapse">
+                <div class="failure-copy">
+                  <header><span>Model output 1</span><h3>Visual collapse</h3></header>
+                  <p>Robot geometry breaks, blurs, or disappears under the query.</p>
+                </div>
+                <video id="video-collapse" controls muted playsinline preload="auto" poster="assets/posters/grab-collapse.png" aria-label="World-model rollout with visual collapse">
+                  <source src="assets/videos/grab-collapse.mp4" type="video/mp4">
+                </video>
+              </article>
+              <article class="failure-video failure-mismatch">
+                <div class="failure-copy">
+                  <header><span>Model output 2</span><h3>Action mismatch</h3></header>
+                  <p>The video looks plausible, but its end-effector motion disagrees.</p>
+                </div>
+                <video id="video-mismatch" controls muted playsinline preload="auto" poster="assets/posters/grab-mismatch.png" aria-label="Plausible world-model rollout with action mismatch">
+                  <source src="assets/videos/grab-mismatch.mp4" type="video/mp4">
+                </video>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="worldecho" class="section-pad section-light" aria-labelledby="worldecho-heading">
+        <div id="research-scope" class="container container-wide">
+          <div class="section-heading split-heading">
+            <div>
+              <div class="brand-lockup">
+                <img class="brand-icon" src="assets/brand/worldecho-icon-tight.svg" alt="">
+                <span class="brand-name">World<em class="brand-echo">Echo</em></span>
+                <span class="brand-role">Part I / Action-following benchmark</span>
+              </div>
+              <h2 id="worldecho-heading">From observed failures<br>to measurable errors.</h2>
+            </div>
+            <p class="lead">WorldEcho measures action following directly. From the same initial state, it replays each queried action in the simulator and scores the model's future against the reference, checking visual integrity and SE(3) end-effector alignment across five query types.</p>
+          </div>
+
+          <figure id="figure-3" class="figure-shell" data-zoom>
+            <button class="figure-button" type="button" aria-label="Open the WorldEcho benchmark figure">
+              <img src="assets/figures/paper-figure-3.png" alt="Paper Figure 3: WorldEcho action query construction, matched simulator and world-model rollouts, and integrity-gated evaluation with SE(3) alignment." width="3200" height="695" loading="eager">
+              <span class="figure-zoom" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <circle cx="8.6" cy="8.6" r="5.6"></circle>
+                  <path d="M12.8 12.8 17 17M8.6 6.2v4.8M6.2 8.6h4.8"></path>
+                </svg>
+              </span>
+            </button>
+          </figure>
+
+          <div id="alignment" class="metric-system">
+            <article class="metric-card metric-gate">
+              <span class="metric-glyph" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M12 2.8 20 6v6.1c0 4.6-3.3 7.6-8 9.1-4.7-1.5-8-4.5-8-9.1V6z"></path>
+                  <path d="m8.4 12.1 2.5 2.5 4.8-4.9"></path>
+                </svg>
+              </span>
+              <p class="metric-label">Visual integrity gate</p>
+              <h3>Can this rollout be evaluated at all?</h3>
+              <p class="metric-body">Quality, temporal smoothness, end-effector visibility, and arm integrity must all pass.</p>
+            </article>
+            <article class="metric-card metric-trajectory">
+              <span class="metric-glyph" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M2.6 18.6c4-.4 6.1-3.2 8.2-6.6s4.1-6.3 8.4-6.7"></path>
+                  <path d="M2.6 18.6c4.3 1 6.6-.7 9.3-2.7s5-3.7 8.5-3.2" class="glyph-dashed"></path>
+                  <circle cx="2.6" cy="18.6" r="1.9"></circle>
+                  <circle cx="19.9" cy="5.3" r="1.9"></circle>
+                </svg>
+              </span>
+              <p class="metric-label">Trajectory alignment</p>
+              <h3>Did the robot move as that action should?</h3>
+              <p class="metric-body">AnyPos recovers both end-effector trajectories; pose-aware NDTW compares them in SE(3).</p>
+            </article>
+            <article class="metric-card metric-score">
+              <span class="metric-glyph" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M3.2 4.4h17.6l-6.9 8.1v7.3l-3.8 2.1v-9.4z"></path>
+                  <path d="M12 8.2h6"></path>
+                </svg>
+              </span>
+              <p class="metric-label">Integrity-gated score</p>
+              <h3>Invalid videos cannot hide behind motion error.</h3>
+              <p class="metric-body">Valid rollouts use trajectory error; visually invalid rollouts receive a fixed penalty.</p>
+            </article>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="worldsync" class="section-pad section-light" aria-labelledby="worldsync-heading">
+        <div class="container container-wide">
+          <div class="section-heading split-heading">
+            <div>
+              <div class="brand-lockup">
+                <img class="brand-icon" src="assets/brand/worldsync-icon-tight.svg" alt="">
+                <span class="brand-name">World<em class="brand-sync">Sync</em></span>
+                <span class="brand-role brand-role-sync">Part II / World model training</span>
+              </div>
+              <h2 id="worldsync-heading">Train a world model<br>that follows actions.</h2>
+            </div>
+            <p class="lead">
+              Guided by the WorldEcho diagnosis, WorldSync trains the world model to improve action following through
+              expanded action coverage, auxiliary Action-Forcing Expert supervision, and intervention-effect alignment.
+            </p>
+          </div>
+
+          <figure id="figure-4" class="figure-shell" data-zoom>
+            <button class="figure-button" type="button" aria-label="Open the WorldSync training figure">
+              <img src="assets/figures/paper-figure-4.png" alt="Paper Figure 4: WorldSync action coverage expansion, intervention-effect supervision, the action-conditioned world model, and Action-Forcing Expert with their joint training objective." width="3200" height="1614" loading="eager">
+              <span class="figure-zoom" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <circle cx="8.6" cy="8.6" r="5.6"></circle>
+                  <path d="M12.8 12.8 17 17M8.6 6.2v4.8M6.2 8.6h4.8"></path>
+                </svg>
+              </span>
+            </button>
+          </figure>
+
+          <ol class="sync-steps">
+            <li class="sync-step">
+              <div class="step-head">
+                <span class="step-number">01</span>
+                <p class="step-type">Coverage</p>
+              </div>
+              <h3>Action coverage expansion</h3>
+              <p>Mix diverse simulated expert and off-expert trajectories with target-domain real expert data in a shared relative Cartesian action space.</p>
+            </li>
+            <li class="sync-step">
+              <div class="step-head">
+                <span class="step-number">02</span>
+                <p class="step-type">Grounding</p>
+              </div>
+              <h3>Action-Forcing Expert</h3>
+              <p>Predict future end-effector state changes from intermediate video features, grounding them in action-induced robot dynamics.</p>
+            </li>
+            <li class="sync-step">
+              <div class="step-head">
+                <span class="step-number">03</span>
+                <p class="step-type">Alignment</p>
+              </div>
+              <h3>Intervention-effect supervision</h3>
+              <p>Pair the same observation with different actions and match the change in predicted futures to the change in ground-truth futures.</p>
+            </li>
+          </ol>
+
+        </div>
+      </section>
+
+      <section id="results" class="section-pad results-section" aria-labelledby="leaderboard-heading">
+        <div class="container">
+          <div class="section-heading split-heading">
+            <div><p class="kicker kicker-result">WorldEcho / Leaderboard</p><h2 id="leaderboard-heading">How well do models follow actions?</h2></div>
+          </div>
+          <section id="table-1" class="leaderboard" data-leaderboard aria-label="WorldEcho model rankings">
+            <div class="lb-toolbar" data-lb-controls hidden>
+              <p class="lb-scope">Evaluated on 50 RoboTwin tasks across five action-query distributions.</p>
+              <label class="lb-vm-toggle" for="lb-vm-toggle"><input type="checkbox" id="lb-vm-toggle" data-lb-vm-toggle> Video generation metrics</label>
+              <label class="lb-sort" for="leaderboard-sort">Rank by <select id="leaderboard-sort" aria-label="Ranking metric" data-lb-sort><option value="gated">Gated error ↓</option><option value="raw">Raw NDTW ↓</option><option value="visual">Visual pass ↑</option></select></label>
+            </div>
+            <p class="table-scroll-hint">Scroll horizontally to compare all metrics.</p>
+            <div class="table-scroll lb-scroll" role="region" aria-label="WorldEcho leaderboard" tabindex="0">
+              <table>
+                <caption class="sr-only">WorldEcho main comparison: 8 configurations across 50 RoboTwin tasks, ranked by integrity-gated error.</caption>
+                <colgroup><col class="lb-rank-col"><col class="lb-model-col"><col span="3" class="lb-metric-col"><col span="4" class="lb-vm-col" data-vm-col></colgroup>
+                <thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col" data-lb-column="gated" aria-sort="ascending">Gated error ↓</th><th scope="col" data-lb-column="raw">Raw NDTW ↓</th><th scope="col" data-lb-column="visual">Visual pass (%) ↑</th><th scope="col" class="lb-vm-start" data-vm-col>PSNR ↑</th><th scope="col" data-vm-col>SSIM ↑</th><th scope="col" data-vm-col>LPIPS ↓</th><th scope="col" data-vm-col>FVD ↓</th></tr></thead>
+                <tbody data-lb-rows>
+                  <tr class="ours" data-coverage="expanded" data-gated="0.0228" data-raw="0.0180" data-visual="98.23">
+                    <td class="lb-rank" data-lb-rank><span class="sr-only">Rank 1</span><span class="lb-rank-mark" aria-hidden="true">🥇</span></td><th scope="row"><span class="lb-model-identity"><span class="lb-model-title"><span data-lb-name>WorldSync w/ pretrain</span> <span class="lb-ours">Ours</span></span></span></th>
+                    <td class="lb-primary"><strong>0.0228</strong></td><td>0.0180</td><td><strong>98.23</strong></td><td class="lb-vm-start" data-vm-col>21.36</td><td data-vm-col>0.8738</td><td data-vm-col>0.0887</td><td data-vm-col>45.61</td>
+                  </tr>
+                  <tr class="ours" data-coverage="expanded" data-gated="0.0234" data-raw="0.0176" data-visual="97.94">
+                    <td class="lb-rank" data-lb-rank><span class="sr-only">Rank 2</span><span class="lb-rank-mark" aria-hidden="true">🥈</span></td><th scope="row"><span class="lb-model-identity"><span class="lb-model-title"><span data-lb-name>WorldSync</span> <span class="lb-ours">Ours</span></span></span></th>
+                    <td class="lb-primary">0.0234</td><td>0.0176</td><td>97.94</td><td class="lb-vm-start" data-vm-col>21.42</td><td data-vm-col>0.8743</td><td data-vm-col>0.0875</td><td data-vm-col>46.97</td>
+                  </tr>
+                  <tr data-coverage="expanded" data-gated="0.0237" data-raw="0.0151" data-visual="96.97">
+                    <td class="lb-rank" data-lb-rank><span class="sr-only">Rank 3</span><span class="lb-rank-mark" aria-hidden="true">🥉</span></td><th scope="row"><span class="lb-model-identity"><span class="lb-model-credits"><span class="lb-model-credit" title="NVIDIA"><img src="assets/model-organizations/nvidia.png" alt="NVIDIA" width="24" height="24" loading="lazy"></span></span><span class="lb-model-title"><a href="https://github.com/NVIDIA/DreamDojo" target="_blank" rel="noopener" data-lb-name>DreamDojo</a></span></span></th>
+                    <td class="lb-primary">0.0237</td><td>0.0151</td><td>96.97</td><td class="lb-vm-start" data-vm-col>21.17</td><td data-vm-col><strong>0.8959</strong></td><td data-vm-col>0.0949</td><td data-vm-col><strong>30.77</strong></td>
+                  </tr>
+                  <tr data-coverage="expanded" data-gated="0.0293" data-raw="0.0210" data-visual="96.97">
+                    <td class="lb-rank" data-lb-rank><span class="sr-only">Rank 4</span><span class="lb-rank-mark" aria-hidden="true">04</span></td><th scope="row"><span class="lb-model-identity"><span class="lb-model-credits"><span class="lb-model-credit" title="Stanford University"><img src="assets/model-organizations/stanford-mark.png" alt="Stanford University" width="24" height="24" loading="lazy"></span></span><span class="lb-model-title"><a href="https://ctrl-world.github.io/" target="_blank" rel="noopener" data-lb-name>CtrlWorld</a></span></span></th>
+                    <td class="lb-primary">0.0293</td><td>0.0210</td><td>96.97</td><td class="lb-vm-start" data-vm-col>20.83</td><td data-vm-col>0.8665</td><td data-vm-col>0.0915</td><td data-vm-col>69.58</td>
+                  </tr>
+                  <tr data-coverage="expanded" data-gated="0.0371" data-raw="0.0292" data-visual="97.14">
+                    <td class="lb-rank" data-lb-rank><span class="sr-only">Rank 5</span><span class="lb-rank-mark" aria-hidden="true">05</span></td><th scope="row"><span class="lb-model-identity"><span class="lb-model-credits"><span class="lb-model-credit" title="Tsinghua University"><img src="assets/model-organizations/tsinghua-mark.ico" alt="Tsinghua University" width="24" height="24" loading="lazy"></span></span><span class="lb-model-title"><a href="https://motus-robotics.github.io/motus" target="_blank" rel="noopener" data-lb-name>Motus</a></span></span></th>
+                    <td class="lb-primary">0.0371</td><td>0.0292</td><td>97.14</td><td class="lb-vm-start" data-vm-col>19.22</td><td data-vm-col>0.8448</td><td data-vm-col>0.1182</td><td data-vm-col>68.78</td>
+                  </tr>
+                  <tr data-coverage="expanded" data-gated="0.0445" data-raw="0.0127" data-visual="88.80">
+                    <td class="lb-rank" data-lb-rank><span class="sr-only">Rank 6</span><span class="lb-rank-mark" aria-hidden="true">06</span></td><th scope="row"><span class="lb-model-identity"><span class="lb-model-credits"><span class="lb-model-credit" title="NVIDIA"><img src="assets/model-organizations/nvidia.png" alt="NVIDIA" width="24" height="24" loading="lazy"></span></span><span class="lb-model-title"><a href="https://github.com/nvidia-cosmos/cosmos-predict2.5" target="_blank" rel="noopener" data-lb-name>Cosmos-Predict2.5</a></span></span></th>
+                    <td class="lb-primary">0.0445</td><td><strong>0.0127</strong></td><td>88.80</td><td class="lb-vm-start" data-vm-col><strong>22.95</strong></td><td data-vm-col>0.8952</td><td data-vm-col><strong>0.0658</strong></td><td data-vm-col>51.89</td>
+                  </tr>
+                  <tr data-coverage="expanded" data-gated="0.0446" data-raw="0.0340" data-visual="96.06">
+                    <td class="lb-rank" data-lb-rank><span class="sr-only">Rank 7</span><span class="lb-rank-mark" aria-hidden="true">07</span></td><th scope="row"><span class="lb-model-identity"><span class="lb-model-credits"><span class="lb-model-credit" title="Ant Group, Robbyant’s parent company"><img src="assets/model-organizations/antgroup-mark.png" alt="Ant Group" width="80" height="80" loading="lazy" decoding="async"></span></span><span class="lb-model-title"><a href="https://github.com/Robbyant/lingbot-va" target="_blank" rel="noopener" data-lb-name>LingBotVA</a></span></span></th>
+                    <td class="lb-primary">0.0446</td><td>0.0340</td><td>96.06</td><td class="lb-vm-start" data-vm-col>17.60</td><td data-vm-col>0.8272</td><td data-vm-col>0.1450</td><td data-vm-col>81.16</td>
+                  </tr>
+                  <tr data-coverage="expanded" data-gated="0.0799" data-raw="0.0419" data-visual="85.09">
+                    <td class="lb-rank" data-lb-rank><span class="sr-only">Rank 8</span><span class="lb-rank-mark" aria-hidden="true">08</span></td><th scope="row"><span class="lb-model-identity"><span class="lb-model-credits"><span class="lb-model-credit" title="NVIDIA"><img src="assets/model-organizations/nvidia.png" alt="NVIDIA" width="24" height="24" loading="lazy"></span></span><span class="lb-model-title"><a href="https://github.com/NVIDIA/Cosmos" target="_blank" rel="noopener" data-lb-name>Cosmos3</a></span></span></th>
+                    <td class="lb-primary">0.0799</td><td>0.0419</td><td>85.09</td><td class="lb-vm-start" data-vm-col>15.10</td><td data-vm-col>0.7003</td><td data-vm-col>0.1525</td><td data-vm-col>86.36</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <section id="results-explorer" class="action-coverage" aria-labelledby="action-coverage-heading" data-action-coverage data-ac-source="assets/figures/action-coverage/figure5c.json">
+            <div class="ac-heading"><div><p class="kicker">WorldEcho / Evaluation coverage</p><h3 id="action-coverage-heading">Evaluating beyond expert demonstrations.</h3></div></div>
+            <p class="ac-lead">Ask a world model for the consequences of an action, and it should answer for any action you might try. But it is trained on expert demonstrations, the narrow thread in this plot, while a policy in training wanders the whole spread around it. Inside the thread, every model looks faithful. Outside it, all six we tested degrade. WorldEcho measures the whole space.</p>
+            <div class="ac-interactive" data-ac-interactive hidden>
+              <div class="ac-legend" data-ac-legend role="group" aria-label="Action query categories"></div>
+              <div class="ac-plot-host" data-ac-plot></div>
+              <div class="ac-support-key" data-ac-support-key></div>
+            </div>
+            <figure class="ac-figure" data-ac-fallback>
+              <img src="assets/figures/paper-figure-5c.png" alt="Paper Figure 5c: Expanded evaluation coverage beyond expert demonstrations, illustrated by a PCA projection of robot states and action sequences for the Adjust bottle task. Four off-expert query categories extend beyond the expert distribution; dashed contours show 95% highest-density regions." width="751" height="634" loading="lazy" decoding="async">
+              <figcaption><span>Paper Figure 5c · Expanded evaluation coverage</span></figcaption>
+            </figure>
+          </section>
+        </div>
+      </section>
+
+      
+
+      <section id="state-control" class="section-pad state-control-section" aria-labelledby="state-control-heading">
+        <div class="container">
+          <div class="section-heading"><h2 id="state-control-heading">Rollout comparisons</h2></div>
+          <div class="demo-gallery rollout-demo" data-rollout-demo data-catalog="assets/rollout-demo/catalog.json" aria-label="Recorded rollout comparisons">
+            <div class="rollout-load" data-rollout-load role="status">
+              <p data-rollout-load-message>Loading videos…</p>
+              <button type="button" data-rollout-retry hidden>Retry</button>
+            </div>
+            <div data-rollout-content hidden>
+              <div class="rollout-toolbar">
+                <label for="rollout-case">Task<select id="rollout-case" data-rollout-case></select></label>
+                <label for="rollout-model">Comparison model<select id="rollout-model" data-rollout-model></select></label>
+              </div>
+              <div class="rollout-annotations" title="AnyPos-estimated end-effector trajectories, including on the reference video">
+                <label><input type="checkbox" data-rollout-trajectory-toggle checked> AnyPos trajectories</label>
+                <span class="rollout-arm-left">Left</span><span class="rollout-arm-right">Right</span>
+              </div>
+              <div class="demo-comparison">
+                <figure class="demo-slot" data-rollout-slot="gt">
+                  <figcaption><h4>GT</h4></figcaption>
+                  <div class="rollout-reference-summary">
+                    <ul class="rollout-gates" data-rollout-gates aria-label="GT visual gates"></ul>
+                    <div data-rollout-comparison></div>
+                  </div>
+                  <div class="rollout-media"><video muted playsinline preload="auto" aria-label="Ground-truth rollout"></video><canvas data-rollout-trajectory aria-hidden="true"></canvas><p class="rollout-media-error" hidden></p></div>
+                </figure>
+                <figure class="demo-slot" data-rollout-slot="baseline">
+                  <figcaption><h4 data-rollout-model-name></h4></figcaption>
+                  <ul class="rollout-gates" data-rollout-gates aria-label="Comparison model visual gates"></ul>
+                  <div class="rollout-media"><video muted playsinline preload="auto" aria-label="Comparison model rollout"></video><canvas data-rollout-trajectory aria-hidden="true"></canvas><p class="rollout-media-error" hidden></p></div>
+                </figure>
+                <figure class="demo-slot demo-slot-ours" data-rollout-slot="worldsync">
+                  <figcaption><h4>WorldSync</h4></figcaption>
+                  <ul class="rollout-gates" data-rollout-gates aria-label="WorldSync visual gates"></ul>
+                  <div class="rollout-media"><video muted playsinline preload="auto" aria-label="WorldSync rollout"></video><canvas data-rollout-trajectory aria-hidden="true"></canvas><p class="rollout-media-error" hidden></p></div>
+                </figure>
+              </div>
+            </div>
+            <noscript><p class="demo-status">Enable JavaScript to compare recorded rollouts.</p></noscript>
+          </div>
+        </div>
+      </section>
+
+      <section id="policy-improvement" class="section-pad policy-section" aria-labelledby="policy-heading">
+        <div class="container container-wide">
+          <div class="section-heading split-heading">
+            <div>
+              <p class="kicker">WorldSync / Policy improvement</p>
+              <h2 id="policy-heading">From faithful rollouts<br>to policy gains.</h2>
+            </div>
+            <p class="lead">
+              WorldSync and expert-trained CtrlWorld drive the same self-evolution procedure with matched interaction,
+              rollout, and training budgets in each domain. Stronger WorldEcho performance coincided with larger
+              policy gains, in simulation and across four real-robot tasks.
+            </p>
+          </div>
+
+          <div class="pi-legend" data-pi-legend>
+            <button type="button" class="pi-legend-item" data-pi-focus="ws"><i class="pi-swatch pi-swatch-ws"></i>WorldSync</button>
+            <button type="button" class="pi-legend-item" data-pi-focus="cw"><i class="pi-swatch pi-swatch-cw"></i>CtrlWorld</button>
+          </div>
+          <div class="pi-grid" data-policy-grid></div>
+        </div>
+      </section>
+
+      <section id="real-world-experiments" class="section-pad real-world-section" aria-labelledby="real-world-heading">
+        <div class="container">
+          <div class="section-heading split-heading">
+            <div><h2 id="real-world-heading">Real-world experiments</h2></div>
+          </div>
+          <div class="real-world-recordings" role="region" aria-label="Real-robot demonstrations; scroll horizontally for more" tabindex="0">
+            <figure class="real-world-recording">
+              <video data-real-world-video controls muted loop playsinline preload="none" poster="assets/real-world/demo-01.jpg" src="assets/real-world/demo-01.mp4" aria-label="Box Packing demonstration on the Simplexity i7 Pro platform"></video>
+              <figcaption><span>01</span><h3>Box Packing · Simplexity i7 Pro</h3></figcaption>
+              <p class="real-world-result">Policy success 40% → 60% <a href="#policy-improvement">details</a></p>
+            </figure>
+            <figure class="real-world-recording">
+              <video data-real-world-video controls muted loop playsinline preload="none" poster="assets/real-world/demo-02.jpg" src="assets/real-world/demo-02.mp4" aria-label="Cup Stacking demonstration on the dual-arm TianJi-Sharpa platform"></video>
+              <figcaption><span>02</span><h3>Cup Stacking · Dual TianJi-Sharpa</h3></figcaption>
+              <p class="real-world-result">Policy success 48% → 68% after two rounds <a href="#policy-improvement">details</a></p>
+            </figure>
+            <figure class="real-world-recording">
+              <video data-real-world-video controls muted loop playsinline preload="none" poster="assets/real-world/demo-03.jpg" src="assets/real-world/demo-03.mp4" aria-label="Bread Placement demonstration on the Franka FR3 arm"></video>
+              <figcaption><span>03</span><h3>Bread Placement · Franka FR3</h3></figcaption>
+              <p class="real-world-result">Policy success 76% → 96% after one round <a href="#policy-improvement">details</a></p>
+            </figure>
+            <figure class="real-world-recording">
+              <video data-real-world-video controls muted loop playsinline preload="none" poster="assets/real-world/demo-04.jpg" src="assets/real-world/demo-04.mp4" aria-label="Pen Collection demonstration on the Franka FR3 arm"></video>
+              <figcaption><span>04</span><h3>Pen Collection · Franka FR3</h3></figcaption>
+              <p class="real-world-result">Policy success 72% → 88% after one round <a href="#policy-improvement">details</a></p>
+            </figure>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section id="citation" class="section-pad citation-section" aria-labelledby="citation-heading">
+      <div class="container">
+        <h2 id="citation-heading">Citation</h2>
+        <pre class="citation-block"><code>@misc{anonymous2026worldecho,
+  title  = {Do Robotic World Models Really Follow Actions? Diagnosing and Aligning Action-Conditioned Generation for Policy Learning},
+  author = {Anonymous},
+  year   = {2026}
+}</code></pre>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-layout">
+        <div class="footer-brand-block">
+          <p class="project-wordmark footer-brand"><span>World<span class="wordmark-echo">Echo</span></span> <span class="wordmark-amp">&amp;</span> <span>World<span class="wordmark-sync">Sync</span></span></p>
+          <p class="footer-tagline"><b>WorldEcho</b> diagnoses. <b>WorldSync</b> aligns.</p>
+        </div>
+        <div class="footer-status">
+          <strong>Do Robotic World Models Really Follow Actions?</strong>
+          
+        </div>
+      </div>
+    </footer>
+
+    <dialog id="figure-dialog" class="figure-dialog" aria-label="Enlarged research figure">
+      <div class="dialog-toolbar">
+        <a class="dialog-fullsize" href="assets/figures/paper-figure-3.png" target="_blank" rel="noopener">Full-size image ↗</a>
+        
+        <button class="dialog-close" type="button" aria-label="Close enlarged figure">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m4 4 8 8M12 4l-8 8"></path></svg>
+          <span>Close</span>
+        </button>
+      </div>
+      <img src="assets/figures/paper-figure-3.png" alt="">
+      <p></p>
+    </dialog>
+  </body>
+</html>

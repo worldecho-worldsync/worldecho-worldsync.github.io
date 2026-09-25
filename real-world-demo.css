@@ -1,0 +1,122 @@
+/* The masthead keeps a dark canvas in either theme; recordings below retain
+ * their complete frames and original colors. Load after the page theme. */
+.hero.hero-real-world {
+  /* Adjust this one value to change the space between all four task tiles. */
+  --hero-reel-gap: clamp(10px, 1.1vw, 18px);
+  min-height: min(850px, calc(100svh - 72px));
+  justify-content: center;
+  padding: 72px 0 36px;
+  background: #171b1c;
+  color: #fff;
+}
+.real-world-hero-media, .real-world-hero-shade, .real-world-hero-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.real-world-hero-media {
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: var(--hero-reel-gap);
+  background: #11191e;
+}
+.real-world-hero-shot {
+  min-height: 0;
+  overflow: hidden;
+  background-image: var(--hero-frame);
+  background-position: center var(--hero-focus);
+  background-size: cover;
+}
+.real-world-hero-shot-01 { --hero-frame: url("assets/real-world/hero-01.jpg"); --hero-focus: 66%; }
+.real-world-hero-shot-02 { --hero-frame: url("assets/real-world/hero-02.jpg"); --hero-focus: 70%; }
+.real-world-hero-shot-03 { --hero-frame: url("assets/real-world/hero-03.jpg"); --hero-focus: 82%; }
+.real-world-hero-shot-04 { --hero-frame: url("assets/real-world/hero-04.jpg"); --hero-focus: 86%; }
+.real-world-hero-shot video {
+  display: block;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center var(--hero-focus);
+}
+.real-world-hero-shade {
+  z-index: 1;
+  background: radial-gradient(ellipse 49% 35% at 50% 49%, rgb(8 14 18 / .46), transparent),
+    linear-gradient(180deg, rgb(8 14 18 / .25), rgb(8 14 18 / .34) 55%, rgb(8 14 18 / .51));
+}
+.real-world-hero-labels {
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: var(--hero-reel-gap);
+}
+.real-world-hero-labels span {
+  align-self: end;
+  justify-self: start;
+  margin: 0 0 15px clamp(18px, 3vw, 42px);
+  padding: 7px 10px;
+  color: #fff;
+  background: rgb(8 14 18 / .66);
+  font: 10px/1.4 var(--font-mono);
+  letter-spacing: .04em;
+}
+/* Top-row labels sit at the cell top so the centered title never covers them. */
+.real-world-hero-labels span:nth-child(-n+2) { align-self: start; margin: 15px 0 0 clamp(18px, 3vw, 42px); }
+.real-world-hero-labels b {
+  margin-right: 10px;
+  color: #b8d9c6;
+  font-weight: 500;
+}
+.hero.hero-real-world h1, .hero.hero-real-world h1 em,
+.hero.hero-real-world .hero-subtitle, .hero.hero-real-world .author-list { color: #fff; }
+.hero.hero-real-world .wordmark-echo { color: #ff8a4d; }
+.hero.hero-real-world .wordmark-sync { color: #ff5f7c; }
+.hero-word-icon { display: inline-block; width: .8em; height: .8em; object-fit: contain; border-radius: .14em; margin-right: .14em; vertical-align: -.08em; }
+.hero.hero-real-world :is(.eyebrow, .hero-lead, .hero-affiliations, .author-notes, .publication-status),
+.hero.hero-real-world .publication-status > span,
+.hero.hero-real-world .author-list sup,
+.hero.hero-real-world .hero-affiliations .affiliation-number { color: #e1e5e8; }
+.hero-real-world .eyebrow-line { background: #e1e5e8; }
+.hero-real-world .hero-content { z-index: 3; width: min(1180px, calc(100% - 64px)); text-shadow: 0 2px 14px rgb(0 0 0 / .34); }
+.hero.hero-real-world .button-primary { color: #151c21; background: #fff; border-color: #fff; }
+.hero.hero-real-world .button-primary:hover { background: #e4e8eb; border-color: #e4e8eb; }
+.hero.hero-real-world .button-secondary { color: #fff; background: rgb(10 17 22 / .28); border-color: rgb(255 255 255 / .65); }
+.hero.hero-real-world .button-secondary:hover { background: rgb(255 255 255 / .16); }
+.hero-real-world :focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+
+.real-world-section { border-top: 1px solid var(--line); }
+.real-world-section > .container { width: min(1600px, calc(100% - 64px)); }
+.real-world-recordings {
+  margin-top: 36px;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+  padding-bottom: 20px;
+}
+.real-world-recording { flex: 0 0 min(72%, 780px); min-width: 0; margin: 0; scroll-snap-align: start; }
+.real-world-recording video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #101214; border-radius: 3px; }
+.real-world-recording figcaption { display: flex; align-items: baseline; gap: 12px; margin-top: 16px; }
+.real-world-recording figcaption > span { color: var(--muted); font: 11px/1.5 var(--font-mono); }
+.real-world-recording h3 { font-size: 16px; line-height: 1.5; font-weight: 500; }
+.real-world-result { margin: 6px 0 0; color: var(--muted); font: 12px/1.6 var(--font-mono); }
+.real-world-result a { color: var(--echo); text-underline-offset: 3px; }
+@media (max-width: 560px) {
+  .hero.hero-real-world { --hero-reel-gap: 8px; min-height: max(680px, calc(100svh - var(--header-h))); padding: 48px 0 28px; }
+  .hero-real-world .hero-content, .real-world-section > .container { width: calc(100% - 36px); }
+  .real-world-hero-media, .real-world-hero-labels { grid-template-columns: 1fr; grid-template-rows: repeat(4, minmax(0, 1fr)); }
+  .real-world-hero-labels span { margin: 0 0 7px 9px; padding: 5px 7px; font-size: 9px; }
+  .real-world-hero-labels span:nth-child(-n+2) { margin: 7px 0 0 9px; }
+  .real-world-hero-labels b { margin-right: 5px; }
+  
+  
+  .real-world-recordings { margin-top: 28px; gap: 16px; }
+  .real-world-recording { flex-basis: 90%; }
+}

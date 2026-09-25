@@ -1,0 +1,186 @@
+/* Load last. Page surfaces are white by default, with an optional neutral dark
+ * theme. Scientific figures, recordings, and institution marks retain their
+ * original pixels and colors; no inversion or theme filter is applied. */
+:root {
+  color-scheme: light;
+  --paper: #fff;
+  --surface: #fff;
+  --ink: #191919;
+  --ink-strong: #111;
+  --ink-soft: #555;
+  --muted: #646464;
+  --line: #dedede;
+  --line-strong: #bdbdbd;
+  --echo: #c4510f;
+  --echo-deep: #c4510f;
+  --echo-tint: #fce9dd;
+  --sync: #c01436;
+  --sync-deep: #c01436;
+  --sync-tint: #fbe4e9;
+  --warn: #666;
+  --ref: #333;
+  --navy: #191919;
+  --navy-deep: #fff;
+  --theme-solid: #191919;
+  --theme-on-solid: #fff;
+  --theme-hover: #f3f3f3;
+  --theme-focus: #555;
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #111;
+  --surface: #191919;
+  --ink: #eee;
+  --ink-strong: #fff;
+  --ink-soft: #bbb;
+  --muted: #aaa;
+  --line: #353535;
+  --line-strong: #626262;
+  --echo: #ff8a4d;
+  --echo-deep: #ff8a4d;
+  --echo-tint: #3a241a;
+  --sync: #ff5f7c;
+  --sync-deep: #ff5f7c;
+  --sync-tint: #3a1b22;
+  --warn: #bbb;
+  --ref: #ddd;
+  --navy: #eee;
+  --navy-deep: #111;
+  --theme-solid: #eee;
+  --theme-on-solid: #111;
+  --theme-hover: #282828;
+  --theme-focus: #d0d0d0;
+}
+
+html, body, main, .site-header, .hero, .section-light, .overview-section, .evidence-section, .results-section, .abstract-section, .site-footer{
+  background: var(--paper);
+  color: var(--ink);
+}
+.site-header { border-color: var(--line); }
+
+::selection { background: var(--theme-solid); color: var(--theme-on-solid); }
+:focus-visible, .evidence-section :focus-visible { outline-color: var(--theme-focus); }
+.scroll-progress span, .eyebrow-line { background: var(--ink); }
+.skip-link { background: var(--surface); color: var(--ink); }
+
+/* Masthead and publication identity. */
+.project-wordmark, .hero h1, .hero-subtitle,
+.author-list, .footer-tagline b, .footer-status strong { color: var(--ink); }
+.wordmark-echo { color: var(--echo); }
+.wordmark-sync { color: var(--sync); }
+.hero h1 em { color: var(--ink-soft); }
+.wordmark-amp, .eyebrow, .hero-lead, .hero-affiliations, .author-notes, .publication-status, .publication-status > span, .footer-tagline, .footer-status{ color: var(--ink-soft); }
+.author-list sup, .hero-affiliations .affiliation-number { color: var(--ink-soft); }
+.site-header .nav { gap: 16px; }
+.site-header .nav-links { order: 1; margin-left: auto; background: var(--paper); border-color: var(--line); }
+.nav-links a { color: var(--ink-soft); }
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-links a.active::after, .menu-toggle > span:not(.sr-only) { background: var(--ink); }
+.site-header .menu-toggle { order: 3; flex: none; }
+.button-primary { border-color: var(--theme-solid); background: var(--theme-solid); color: var(--theme-on-solid); }
+.button-primary:hover { border-color: var(--ink-soft); background: var(--ink-soft); color: var(--theme-on-solid); }
+.button-secondary { border-color: var(--line-strong); background: var(--surface); color: var(--ink); }
+.button-secondary:hover { background: var(--theme-hover); }
+
+/* The image canvas stays white so original institutional identities and paper
+ * figures remain legible in either theme. The surrounding page still adapts. */
+.figure-button, .figure-dialog img{ background: #fff; }
+.figure-zoom, .figure-dialog, .dialog-toolbar, .dialog-close {
+  border-color: var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+}
+.figure-button:hover .figure-zoom { background: var(--theme-solid); color: var(--theme-on-solid); }
+.figure-dialog::backdrop { background: rgb(0 0 0 / .78); }
+.table-scroll .ours th, .table-scroll .ours td { background: var(--theme-hover); color: var(--ink); }
+
+/* Evidence captions, tabs, and shared video controls. */
+.evidence-section h2, .evidence-section h3, .failure-video header b{ color: var(--ink); }
+.evidence-section .lead, .failure-video p{ color: var(--ink-soft); }
+.evidence-section .kicker, .failure-video header span { color: var(--ink-soft); }
+.failure-console{ border-color: var(--line); }
+.failure-video video { background: var(--surface); }
+.case-tab { border-color: var(--line-strong); background: var(--surface); color: var(--ink-soft); }
+.case-tab:hover { border-color: var(--ink); color: var(--ink); }
+.case-tab.active { border-color: var(--theme-solid); background: var(--theme-solid); color: var(--theme-on-solid); }
+.failure-comparison .playback-controls{
+  --playback-text: var(--ink);
+  --playback-muted: var(--ink-soft);
+  --playback-border: var(--line-strong);
+  --playback-surface: var(--surface);
+  border-color: var(--line);
+}
+.playback-actions button, .hero .playback-actions button {
+  border-color: var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+}
+.playback-actions [data-playback-toggle], .failure-comparison [data-playback-toggle] {
+  border-color: var(--theme-solid);
+  background: var(--theme-solid);
+  color: var(--theme-on-solid);
+}
+.playback-timeline input { accent-color: var(--ink); }
+
+/* The UI draft is a normal themed interface; recordings themselves are intact. */
+
+/* Explicit light/dark control; 44px remains available at narrow widths. */
+.theme-toggle {
+  order: 2;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 78px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 12px/1.2 var(--font-body);
+  cursor: pointer;
+}
+.theme-toggle[hidden] { display: none; }
+.theme-toggle:hover { border-color: var(--ink); background: var(--theme-hover); }
+.theme-toggle-icon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+}
+html[data-theme="dark"] .theme-toggle-icon { transform: rotate(180deg); }
+[data-anonymous-authors][hidden], [data-hero-team][hidden], [data-hero-actions][hidden], .author-notes[hidden], .hero-affiliations[hidden] { display: none !important; }
+@media (max-width: 1100px) {
+  .site-header .menu-toggle { display: block; }
+  .site-header .theme-toggle { margin-left: auto; }
+  .site-header .nav-links {
+    display: none;
+    position: absolute;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    padding: 12px 32px 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header .nav-links.open { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 20px; }
+  .site-header .nav-links a { padding-block: 12px; }
+  .site-header .nav-links a.active::after { bottom: 5px; }
+}
+@media (max-width: 560px) {
+  .site-header .nav { gap: 8px; }
+  .site-header .nav-links { padding-inline: 20px; }
+  .theme-toggle { flex-direction: column; gap: 2px; width: 44px; min-width: 44px; padding: 4px; font-size: 10px; }
+  .theme-toggle-icon { width: 13px; height: 13px; }
+}
+@media (max-width: 380px) {
+  .site-header .nav-wordmark { font-size: 12px; }
+}
+@media (forced-colors: active) {
+  .theme-toggle-icon { border-color: ButtonText; background: none; }
+  .theme-toggle[aria-pressed="true"] { outline: 2px solid Highlight; }
+}

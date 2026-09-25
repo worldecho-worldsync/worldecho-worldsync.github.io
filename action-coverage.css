@@ -1,0 +1,66 @@
+/* Action-space coverage, with the paper figure as the source-data fallback. */
+.action-coverage { margin-top: 54px; border-top: 1px solid var(--line-strong); padding-top: 28px; scroll-margin-top: 90px; }
+.ac-heading { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 30px; }
+.ac-heading .kicker { margin-bottom: 8px; font-size: 10px; }
+.ac-heading h3 { font-family: var(--font-display); font-size: 30px; font-weight: 400; }
+.ac-heading > p { max-width: 410px; color: var(--ink-soft); font-size: 12px; line-height: 1.8; }
+.ac-lead { margin: -12px 0 30px; color: var(--ink-soft); font-size: 13px; line-height: 1.8; }
+.ac-figure { max-width: 660px; margin: 0 auto; }
+.ac-figure img { display: block; width: 100%; height: auto; background: #fff; }
+.ac-figure figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; color: var(--ink-soft); font-size: 11px; line-height: 1.8; }
+.ac-figure a { color: var(--ink); text-underline-offset: 3px; }
+.ac-interactive { max-width: 900px; margin: 0 auto; }
+
+.ac-interactive[hidden], .ac-figure[hidden] { display: none; }
+
+.ac-legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 24px; }
+.ac-category {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.ac-category:hover, .ac-category[aria-pressed="true"] {
+  color: var(--ink);
+  border-color: var(--ink);
+  background: var(--surface);
+}
+.ac-category:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.ac-plot { display: block; width: 100%; height: auto; overflow: visible; }
+.ac-plot.has-highlight { cursor: pointer; }
+.ac-axes { color: var(--ink-soft); }
+.ac-axis-label { font-size: 13px; }
+.ac-axis-tick { font-family: var(--font-mono, monospace); }
+.ac-category-mark { flex: 0 0 20px; }
+.ac-cloud { transition: opacity 180ms ease; }
+.ac-point { fill-opacity: .78; stroke: var(--surface); stroke-width: .45; cursor: pointer; }
+.ac-cloud.is-selected .ac-point { fill-opacity: 1; }
+.ac-region, .ac-family-region { transition: opacity 180ms ease, fill-opacity 180ms ease; pointer-events: none; }
+.ac-support-key { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 24px; color: var(--ink-soft); font-size: 11px; }
+.ac-support-key > span { display: inline-flex; align-items: center; gap: 8px; }
+
+.ac-status { margin-top: 18px; color: var(--ink-soft); font-size: 12px; min-height: 1.8em; }
+.ac-source { margin-top: 8px; font-size: 11px; }
+.ac-source-label { color: var(--ink-soft); margin-top: 8px; font-size: 11px; }
+.ac-source a, .ac-source-label a { color: var(--ink); text-underline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .ac-cloud, .ac-region, .ac-family-region { transition: none; }
+}
+@media (max-width: 700px) {
+  .ac-heading { display: block; }
+  .ac-heading > p { max-width: none; margin-top: 12px; }
+  .ac-figure figcaption { flex-direction: column; gap: 4px; }
+  .ac-legend { gap: 6px; }
+  .ac-category { flex: 1 1 auto; font-size: 11px; }
+  .ac-plot-host { margin-left: -12px; margin-right: -8px; }
+  .ac-axis-label { font-size: 17px; }
+}

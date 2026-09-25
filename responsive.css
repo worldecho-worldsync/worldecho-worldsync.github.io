@@ -1,0 +1,55 @@
+/* Shared layout and hero. Section-specific breakpoints live in sections.css. */
+@media (max-width: 1050px) {
+  .container { width: calc(100% - 64px); }
+  .nav-links { gap: 20px; }
+  .split-heading { gap: 50px; }
+}
+@media (max-width: 850px) {
+  :root { --header-h: 64px; }
+  .nav { gap: 12px; }
+  .menu-toggle { display: block; }
+  .nav-links { display: none; position: absolute; top: var(--header-h); left: 0; right: 0; padding: 12px 32px 22px; background: #0a1814; border-bottom: 1px solid #37483d; }
+  .nav-links.open { display: grid; grid-template-columns: repeat(3,1fr); gap: 0 20px; }
+  .nav-links a { padding: 12px 0; }
+  .nav-links a.active::after { bottom: 5px; }
+  .section-pad { padding: 56px 0; }
+  .split-heading { grid-template-columns: 1fr; gap: 25px; }
+  .lead { max-width: 60ch; }
+  
+  
+  
+  .overview-section { padding-bottom: 48px; }
+}
+@media (max-width: 560px) {
+  .container { width: calc(100% - 40px); }
+  .nav-wordmark { font-size: 14px; }
+  .nav-links { padding-inline: 20px; }
+  .hero { padding: 32px 0 22px; }
+  .hero h1 { font-size: clamp(36px,10.8vw,54px); }
+  .eyebrow { font-size: 9px; letter-spacing: .12em; margin-bottom: 16px; }
+  .hero-subtitle { margin-top: 16px; font-size: 24px; }
+  .hero-lead { font-size: 15px; }
+  .hero-actions { gap: 8px; margin-top: 20px; }
+  .hero-actions .button { gap: 8px; padding: 10px; }
+  
+  .hero .playback-actions button { font-size: 12px; min-height: 38px; padding: 8px 12px; }
+  .hero .playback-status { flex-basis: 100%; }
+  .hero .playback-timeline input { min-height: 30px; }
+  .section-pad { padding: 48px 0; }
+  h2 { font-size: 38px; }
+  .kicker { font-size: 10px; margin-bottom: 18px; }
+  .lead { font-size: 15px; line-height: 1.8; }
+  
+  
+  
+  
+  
+  
+  .overview-section { padding-bottom: 40px; }
+  .playback-status { flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0ms !important; }
+  .js .reveal { opacity: 1; transform: none; }
+}

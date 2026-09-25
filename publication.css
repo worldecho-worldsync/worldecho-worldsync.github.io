@@ -1,0 +1,60 @@
+/* Public paper identity and wide, uncropped scientific media. */
+.publication-status { margin-top: 19px; color: #c0d1c3; font-size: 12px; line-height: 1.8; }
+.publication-status > span { margin-inline: 8px; color: #829b8c; }
+.publication-status a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.hero-team { margin: 22px auto 0; text-align: center; }
+.author-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 26px; max-width: 850px; list-style: none; margin: 0 auto; padding: 0; color: #dce6df; }
+.author-list li { font-size: 17px; font-weight: 500; line-height: 1.5; white-space: nowrap; letter-spacing: -.025em; }
+.author-list sup { margin-left: 3px; color: #b8d6c9; font-size: 10px; font-weight: 400; letter-spacing: 0; }
+.hero-affiliations { max-width: 880px; list-style: none; margin: 12px auto 0; padding: 0; color: #b9c9be; font-size: 12px; line-height: 1.7; }
+.hero-affiliations li { display: inline; margin-inline: 5px; }
+.hero-affiliations .affiliation-number { margin-right: 3px; color: #b8d6c9; font-size: 9px; vertical-align: super; }
+.author-notes { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 20px; margin-top: 10px; color: #adc1b3; font-size: 12px; }
+
+/* Institution logo cards. The strip keeps a white canvas in either theme. */
+.publication-institutions { padding: 20px 0; border-bottom: 1px solid var(--line); background: #fff; }
+.affiliation-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 24px; list-style: none; margin: 28px 0 0; padding: 28px 0 0; border-top: 1px solid var(--line); }
+.affiliation-list li { min-width: 0; }
+.affiliation-link { display: flex; flex-direction: column; gap: 16px; height: 100%; color: #525252; font-size: 12px; line-height: 1.7; text-decoration: none; }
+.affiliation-logo { display: flex; align-items: center; justify-content: center; min-height: 124px; padding: 24px 20px; background: #fff; }
+.affiliation-logo img { width: var(--logo-width, 224px); height: auto; max-width: 100%; max-height: 76px; object-fit: contain; }
+.affiliation-caption { display: grid; grid-template-columns: 12px 1fr; gap: 8px; }
+.affiliation-caption .affiliation-number { color: #c4510f; font-family: var(--font-mono); }
+.affiliation-link:hover .affiliation-caption > span:last-child { color: #252525; text-decoration: underline; text-underline-offset: 3px; }
+
+.container-wide { width: min(calc(100% - 80px), 1600px); }
+.container-wide > .section-heading,
+.container-wide > .figure-shell,
+.container-wide > .metric-system,
+.container-wide > .sync-steps { max-width: var(--container); margin-inline: auto; }
+.container-wide figcaption { max-width: var(--container); margin-inline: auto; }
+.container-wide .figure-button { border: 0; }
+.footer-status a{ text-decoration: underline; text-underline-offset: 4px; }
+
+.dialog-toolbar { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; gap: 24px; background: #fff; }
+.dialog-toolbar > a { padding: 10px 0; color: var(--echo); font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
+.dialog-toolbar .dialog-close { position: static; }
+
+@media (max-width: 1050px) {
+  .container-wide { width: calc(100% - 64px); }
+  .nav-links { gap: 16px; }
+  .affiliation-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; }
+}
+@media (max-width: 560px) {
+  .container-wide { width: calc(100% - 40px); }
+  .hero-team { margin-top: 18px; }
+  .author-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 10px; }
+  .author-list li { font-size: 14px; }
+  .author-list sup { margin-left: 2px; font-size: 9px; }
+  .hero-affiliations { margin-top: 10px; }
+  .affiliation-list { grid-template-columns: 1fr; gap: 24px; }
+  .affiliation-link { gap: 14px; }
+  .affiliation-logo { min-height: 112px; }
+  .publication-status { max-width: 300px; font-size: 11px; }
+  .dialog-toolbar { display: grid; grid-template-columns: 1fr auto; gap: 0 8px; }
+  .dialog-toolbar > a { min-height: 44px; padding: 10px 0; font-size: 12px; }
+  .dialog-toolbar .dialog-close { grid-column: 2; grid-row: 1 / 3; align-self: start; }
+}
+@media (max-width: 360px) {
+  .author-list li { font-size: 13px; }
+}

@@ -1,0 +1,69 @@
+/* This gallery keeps the complete recording visible in both page themes. */
+.rollout-demo [hidden] { display: none !important; }
+.rollout-demo.demo-gallery { margin-top: 30px; }
+.rollout-toolbar { display: grid; grid-template-columns: 1.15fr 1fr; gap: 20px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.rollout-toolbar label { display: grid; gap: 8px; min-width: 0; color: var(--ink-soft); font-size: 12px; }
+.rollout-toolbar select { width: 100%; min-width: 0; min-height: 46px; padding: 10px 32px 10px 12px; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--surface); color: var(--ink); font: 14px/1.5 var(--font-body); text-overflow: ellipsis; cursor: pointer; }
+.rollout-demo .demo-comparison { gap: 20px; padding-top: 22px; }
+.rollout-annotations { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 16px; color: var(--ink-soft); font-size: 12px; }
+.rollout-annotations label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.rollout-annotations input { accent-color: var(--ink); }
+.rollout-annotations > span::before { display: inline-block; content: ""; width: 16px; height: 3px; margin-right: 5px; vertical-align: middle; }
+.rollout-arm-left::before { background: #05b3a4; }
+.rollout-arm-right::before { background: #f27936; }
+.rollout-demo[data-trajectory-visible="false"] [data-rollout-trajectory] { visibility: hidden; }
+.rollout-demo .demo-slot { display: grid; grid-template-rows: auto auto auto; align-content: start; }
+.rollout-demo .demo-slot figcaption { min-height: 35px; }
+.rollout-demo .demo-slot h4 { margin: 0 0 12px; color: var(--ink); font-size: 16px; line-height: 1.4; }
+.rollout-gates { display: grid; grid-template-columns: 1fr; gap: 7px; min-height: 89px; margin: 0 0 14px; padding: 0; list-style: none; }
+.rollout-gates li { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto auto; align-items: center; gap: 5px; min-width: 0; color: var(--ink-soft); font-size: 11px; line-height: 1.4; }
+.rollout-gate-score { color: var(--ink); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rollout-gate-threshold { color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rollout-gates .rollout-gate-reference { display: block; grid-column: 1 / -1; align-self: start; }
+.rollout-gate-icon { display: inline-grid; flex: 0 0 16px; place-items: center; width: 16px; height: 16px; border: 1px solid currentColor; border-radius: 50%; font: 11px/1 var(--font-body); color: var(--muted); }
+.rollout-gates [data-status="pass"] .rollout-gate-icon { color: #34865b; }
+.rollout-gates [data-status="fail"] .rollout-gate-icon { color: #b4554c; }
+.rollout-media { position: relative; display: grid; place-items: center; overflow: hidden; aspect-ratio: 4 / 3; border: 1px solid var(--line); border-radius: 3px; background: var(--theme-hover); }
+.rollout-media video { display: block; width: 100%; height: 100%; object-fit: contain; }
+.rollout-media [data-rollout-trajectory] { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.rollout-demo .demo-slot-ours .rollout-media { border-color: var(--ink-soft); }
+.rollout-reference-summary { min-width: 0; margin-bottom: 14px; }
+.rollout-reference-summary .rollout-gates { min-height: 0; margin-bottom: 5px; }
+.rollout-trajectory-table { width: 100%; table-layout: fixed; border-collapse: collapse; color: var(--ink); font-size: 12px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.rollout-trajectory-table th, .rollout-trajectory-table td { padding: 2px 0 2px 4px; text-align: right; white-space: nowrap; }
+.rollout-trajectory-table th:first-child { padding-left: 0; text-align: left; }
+.rollout-trajectory-table th { color: var(--ink-soft); font-weight: 400; }
+.rollout-trajectory-table thead th { padding-bottom: 4px; font-size: 11px; white-space: normal; overflow-wrap: anywhere; vertical-align: bottom; }
+.rollout-trajectory-table tbody tr:first-child td { font-weight: 600; }
+.rollout-media-error { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 18px; background: var(--surface); color: var(--ink-soft); text-align: center; font-size: 13px; line-height: 1.6; }
+.rollout-demo .playback-controls { display: flex; align-items: center; gap: 18px; margin-top: 18px; padding: 0; }
+.rollout-demo .playback-actions { flex: none; }
+.rollout-demo .playback-actions [data-playback-toggle] { min-width: 72px; }
+.rollout-demo .playback-timeline { flex: 1; min-width: 0; margin: 0; }
+.rollout-demo .playback-status { display: none; }
+.rollout-demo[data-playback-state="error"] .playback-controls { flex-wrap: wrap; }
+.rollout-demo[data-playback-state="error"] .playback-actions { flex-wrap: wrap; }
+.rollout-demo[data-playback-state="error"] .playback-status { display: block; flex-basis: 100%; }
+.rollout-load { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; min-height: 180px; padding: 30px 0; color: var(--ink-soft); font-size: 13px; }
+.rollout-load button { min-height: 44px; padding: 8px 15px; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--surface); color: var(--ink); }
+
+@media (min-width: 620px) {
+  .rollout-demo .demo-comparison { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto auto auto; row-gap: 0; }
+  .rollout-demo .demo-slot { grid-row: span 3; grid-template-rows: subgrid; }
+}
+@media (min-width: 620px) and (max-width: 900px) {
+  .rollout-demo .demo-comparison { gap: 12px; }
+  .rollout-demo .demo-slot figcaption { min-height: 54px; }
+  .rollout-gates { gap: 7px 4px; }
+  .rollout-trajectory-table { font-size: 11px; }
+  .rollout-trajectory-table thead th { font-size: 10px; }
+}
+@media (max-width: 619px) {
+  .rollout-demo .demo-comparison { grid-template-columns: 1fr; gap: 24px; }
+  
+}
+@media (max-width: 420px) {
+  .rollout-toolbar { grid-template-columns: 1fr; gap: 16px; }
+  .rollout-demo .playback-controls { gap: 10px; }
+  .rollout-demo .playback-actions { gap: 6px; }
+}
